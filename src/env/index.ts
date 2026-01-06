@@ -11,8 +11,9 @@ const Shema = z.object({
   NODE_ENV: z
     .enum(["development", "production", "test"])
     .default("production"),
+  DATABASE_CLIENT: z.enum(["better-sqlite3", "pg"]).default("better-sqlite3"),
   DATABASE_URL: z.string().min(1, { message: "DATABASE_URL is required" }),
-  PORT: z.number().default(3333),
+  PORT: z.coerce.number().default(3333),
 });
 
 const _env = Shema.safeParse(process.env);
